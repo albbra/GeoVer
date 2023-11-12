@@ -1,0 +1,18 @@
+# Taken from https://stackoverflow.com/questions/7787823/cmake-how-to-get-the-name-of-all-subdirectories-of-a-directory?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+MACRO(SUBDIRLIST result curdir)
+  FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
+  SET(dirlist "")
+  FOREACH(child ${children})
+    IF(IS_DIRECTORY ${curdir}/${child})
+      LIST(APPEND dirlist ${child})
+    ENDIF()
+  ENDFOREACH()
+  SET(${result} ${dirlist})
+ENDMACRO()
+
+function (AddAllSubdirectories)
+	SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
+	FOREACH(subdir ${SUBDIRS})
+		ADD_SUBDIRECTORY(${subdir})
+	ENDFOREACH()
+endfunction(AddAllSubdirectories)
