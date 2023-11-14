@@ -17,6 +17,22 @@ f32vec2 LagrangeCurveSegment::evaluate(const float t) const
 {
     f32vec2 result(0);
     // Assignment 1c
+    // Anzahl der Koeffizienten
+    const auto n = this->getDegree();
+
+    for (int i = 0; i <= n; ++i) 
+    {
+        f32vec2 term = getCoefficient(i);
+
+        for (int j = 0; j <= n; ++j) {
+            if (j != i) 
+            {
+                // Lagrange Interpolationsformel
+                term *= (t - j) / static_cast<float>(i - j);
+            }
+        }
+        result += term;
+    }
     return result;
 }
 

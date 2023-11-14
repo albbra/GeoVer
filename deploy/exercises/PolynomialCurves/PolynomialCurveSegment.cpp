@@ -65,12 +65,13 @@ std::vector<f32vec2>& PolynomialCurveSegment::getCoefficients()
 
 std::vector<f32vec2> PolynomialCurveSegment::sample(const uint32 nSamplePoints) const
 {
-    std::vector<f32vec2> sampledPoints;    
+    std::vector<f32vec2> sampledPoints;   
     // Assignment 1b
+#ifdef ASSIGNMENT_STUB
     const float dt = 1.0f / (nSamplePoints - 1);
     // sampledPoints.push_back(this->evaluate(0.0));
     // TODO sample nSamplePoints-2 along the curve between 0.0f < t < 1.0f
-    for  (int i = 0;  i < nSamplePoints; i++)
+    for (int i = 0; i < nSamplePoints; i++)
     {
         // compute t where we want to evalate
         float t = i * dt;
@@ -82,6 +83,18 @@ std::vector<f32vec2> PolynomialCurveSegment::sample(const uint32 nSamplePoints) 
         sampledPoints.push_back(samplePoint);
     }
     //sampledPoints.push_back(this->evaluate(1.0));
+#else
+    sampledPoints.reserve(nSamplePoints);
+    float32 delta = 1.0f / (nSamplePoints - 1);
+    float32 parameter = 0.0f;
+    for (uint32 s = 0; s < nSamplePoints - 1; s++)
+    {
+        const auto samplePoint = evaluate(parameter);
+        sampledPoints.emplace_back(samplePoint);
+        parameter += delta;
+    }
+    sampledPoints.emplace_back(evaluate(1.0f));
+#endif 
     return sampledPoints;
 }
 

@@ -50,6 +50,18 @@ std::unique_ptr<PolynomialCurveSegment> MonomialCurveSegment::toMonomialCurveSeg
 std::unique_ptr<PolynomialCurveSegment> MonomialCurveSegment::toLagrangeCurveSegment() const
 {
     // Assignment 1d
+    //// Get the coefficients of the monomial curve
+    //std::vector<f32vec2> monomialCoefficients = getCoefficients();
+    //
+    //// Calculate the corresponding Lagrange coefficients
+    //std::vector<f32vec2> lagrangeCoefficients;
+    //
+    //for (size_t i = 0; i < monomialCoefficients.size(); ++i) {
+    //    f32vec2 lagrangeCoefficient = monomialCoefficients[i] / factorial(i);
+    //    lagrangeCoefficients.push_back(lagrangeCoefficient);
+    //}
+    //
+    //// Create a LagrangeCurveSegment with the new coefficients
     return std::make_unique<LagrangeCurveSegment>(getCoefficients());
 }
 
